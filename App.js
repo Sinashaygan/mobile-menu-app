@@ -23,7 +23,26 @@ function DrawerNavigator() {
         sceneStyle: { backgroundColor: "#3f2f25" },
       }}
     >
-      <Drawer.Screen name="Categories" component={CategoriesScreen} options={{title:'All Categories'}}/>
+      <Drawer.Screen
+        name="Categories"
+        component={CategoriesScreen}
+        options={{
+          title: "All Categories",
+
+          headerStyle: {
+            backgroundColor: "#351401",
+          },
+
+          headerTintColor: "white",
+
+          headerTitleStyle: {
+            fontWeight: "bold",
+            // fontSize: 14,
+          },
+
+          headerTitleAlign: "center",
+        }}
+      />
       <Drawer.Screen name="Favorite" component={FavoritesScreen} />
     </Drawer.Navigator>
   );
