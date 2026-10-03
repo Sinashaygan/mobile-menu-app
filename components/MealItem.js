@@ -1,4 +1,11 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function MealItem({
   title,
@@ -12,18 +19,24 @@ export default function MealItem({
     <View style={styles.mealItem}>
       <Pressable
         onPress={onPress}
-        style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+        style={({ pressed }) => [
+          styles.button,
+          pressed && styles.pressedButton,
+        ]}
+        android_ripple={{ color: "#ccc" }}
       >
-        <View>
-          <Image source={{ uri: imageUrl }} style={styles.image} />
+        <View style={styles.innerContainer}>
+          <View>
+            <Image source={{ uri: imageUrl }} style={styles.image} />
 
-          <Text style={styles.title}>{title}</Text>
-        </View>
+            <Text style={styles.title}>{title}</Text>
+          </View>
 
-        <View style={styles.details}>
-          <Text style={styles.detailText}>{duration}m</Text>
-          <Text style={styles.detailText}>{complexity.toUpperCase()}</Text>
-          <Text style={styles.detailText}>{affordability.toUpperCase()}</Text>
+          <View style={styles.details}>
+            <Text style={styles.detailText}>{duration}m</Text>
+            <Text style={styles.detailText}>{complexity.toUpperCase()}</Text>
+            <Text style={styles.detailText}>{affordability.toUpperCase()}</Text>
+          </View>
         </View>
       </Pressable>
     </View>
@@ -35,6 +48,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
   },
+
   title: {
     fontWeight: "bold",
     textAlign: "center",
@@ -42,10 +56,15 @@ const styles = StyleSheet.create({
     margin: 8,
   },
 
+  innerContainer: {
+    overflow: "hidden",
+    borderRadius: 8,
+  },
+
   mealItem: {
     margin: 16,
     borderRadius: 8,
-    overflow: "hidden",
+    overflow: Platform.OS === "android" ? "hidden" : "visible",
     backgroundColor: "white",
     elevation: 4,
     shadowColor: "black",
@@ -67,5 +86,9 @@ const styles = StyleSheet.create({
   detailText: {
     marginHorizontal: 4,
     fontSize: 12,
+  },
+
+  pressedButton: {
+    opacity: 0.7,
   },
 });

@@ -24,9 +24,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 150,
     margin: 16,
-
     borderRadius: 8,
-
     elevation: 4,
     shadowColor: "black",
     shadowOpacity: 0.25,
@@ -36,6 +34,7 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 8,
     backgroundColor: "transparent",
+    overflow: Platform.OS === "android" ? "hidden" : "visible",
   },
 
   button: {
