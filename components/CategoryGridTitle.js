@@ -2,7 +2,7 @@ import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function CategoryGridTitle({ title, color }) {
   return (
-    <View style={[styles.gritItem, { backgroundColor: color }]}>
+    <View style={styles.gritItem}>
       <Pressable
         style={({ pressed }) => [
           styles.button,
@@ -10,7 +10,7 @@ export default function CategoryGridTitle({ title, color }) {
         ]}
         android_ripple={{ color: "#ccc" }}
       >
-        <View style={styles.innerContainer}>
+        <View style={[styles.innerContainer, { backgroundColor: color }]}>
           <Text style={styles.title}>{title}</Text>
         </View>
       </Pressable>
@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 16,
     height: 150,
-    borderRadius: 8,
     elevation: 4,
     shadowColor: "black",
     backgroundColor: "white",
@@ -36,6 +35,7 @@ const styles = StyleSheet.create({
   innerContainer: {
     flex: 1,
     padding: 16,
+    borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
   },
