@@ -6,10 +6,24 @@ import List from "../components/MealDetail/List";
 
 export default function MealDetailScreen({ route }) {
   const mealId = route.params.mealId;
+
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
+  if (!selectedMeal) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>Meal not found.</Text>
+      </View>
+    );
+  }
+
   return (
-    <ScrollView style={styles.root}>
+    <ScrollView
+      style={styles.root}
+      contentContainerStyle={styles.contentContainer}
+    >
       <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
+
       <Text style={styles.title}>{selectedMeal.title}</Text>
 
       <MealDetails
@@ -22,11 +36,9 @@ export default function MealDetailScreen({ route }) {
       <View style={styles.listRoot}>
         <View style={styles.listContainer}>
           <Subtitle>Ingredients</Subtitle>
-
           <List data={selectedMeal.ingredients} />
 
           <Subtitle>Steps</Subtitle>
-
           <List data={selectedMeal.steps} />
         </View>
       </View>
@@ -36,8 +48,13 @@ export default function MealDetailScreen({ route }) {
 
 const styles = StyleSheet.create({
   root: {
-    marginBottom: 12,
+    flex: 1,
   },
+
+  contentContainer: {
+    paddingBottom: 32,
+  },
+
   image: {
     width: "100%",
     height: 350,
@@ -61,5 +78,16 @@ const styles = StyleSheet.create({
 
   listContainer: {
     width: "80%",
+  },
+
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  errorText: {
+    color: "white",
+    fontSize: 18,
   },
 });
