@@ -35,8 +35,6 @@ const styles = StyleSheet.create({
       height: 2,
     },
     shadowRadius: 8,
-
-    // پس‌زمینه سفید حذف شد
     backgroundColor: "transparent",
   },
 
