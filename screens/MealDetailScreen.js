@@ -22,11 +22,31 @@ export default function MealDetailScreen({ route, navigation }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => {
-        return <IconButton title="Tap me" icon="star" color="white" onPress={headerButtonPressHandler} />;
+      title: "MealDetail",
+
+      headerStyle: {
+        backgroundColor: "#351401",
       },
+
+      headerTintColor: "white",
+
+      headerTitleStyle: {
+        fontWeight: "bold",
+        // fontSize: 14,
+      },
+
+      headerTitleAlign: "center",
+
+      headerRight: () => (
+        <IconButton
+          icon="star"
+          color="white"
+          size={24}
+          onPress={headerButtonPressHandler}
+        />
+      ),
     });
-  }, [navigation, headerButtonPressHandler]);
+  }, [navigation]);
 
   if (!selectedMeal) {
     return (

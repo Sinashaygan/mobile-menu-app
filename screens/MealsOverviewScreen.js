@@ -18,6 +18,19 @@ export default function MealsOverviewScreen({ route, navigation }) {
 
     navigation.setOptions({
       title: category ? category.title : "Meals",
+
+      headerStyle: {
+        backgroundColor: "#351401",
+      },
+
+      headerTintColor: "white",
+
+      headerTitleStyle: {
+        fontWeight: "bold",
+        // fontSize: 14,
+      },
+
+      headerTitleAlign: "center",
     });
   }, [catId, navigation]);
 
