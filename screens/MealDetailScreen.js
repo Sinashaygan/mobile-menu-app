@@ -1,12 +1,14 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { MEALS } from "../data/dummy-data";
 import MealDetails from "../components/MealDetails";
+import Subtitle from "../components/MealDetail/Subtitle";
+import List from "../components/MealDetail/List";
 
 export default function MealDetailScreen({ route }) {
   const mealId = route.params.mealId;
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
   return (
-    <View>
+    <ScrollView style={styles.root}>
       <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
       <Text style={styles.title}>{selectedMeal.title}</Text>
 
@@ -17,26 +19,25 @@ export default function MealDetailScreen({ route }) {
         textStyle={styles.detailStyle}
       />
 
-      <View style={styles.subtitleContainer}>
-        <Text style={styles.subtitle}>Ingredients</Text>
+      <View style={styles.listRoot}>
+        <View style={styles.listContainer}>
+          <Subtitle>Ingredients</Subtitle>
+
+          <List data={selectedMeal.ingredients} />
+
+          <Subtitle>Steps</Subtitle>
+
+          <List data={selectedMeal.steps} />
+        </View>
       </View>
-
-      {selectedMeal.ingredients.map((ingredient) => (
-        <Text key={ingredient}>{ingredient}</Text>
-      ))}
-
-      <View style={styles.subtitleContainer}>
-        <Text style={styles.subtitle}>Steps</Text>
-      </View>
-
-      {selectedMeal.steps.map((step) => (
-        <Text key={step}>{step}</Text>
-      ))}
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  root: {
+    marginBottom: 12,
+  },
   image: {
     width: "100%",
     height: 350,
@@ -54,19 +55,11 @@ const styles = StyleSheet.create({
     color: "white",
   },
 
-  subtitle: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-    margin: 6,
-    textAlign: "center",
+  listRoot: {
+    alignItems: "center",
   },
 
-  subtitleContainer: {
-    borderColor: "white",
-    borderBottomWidth: 2,
-    padding: 6,
-    marginHorizontal: 24,
-    marginVertical: 4,
+  listContainer: {
+    width: "80%",
   },
 });

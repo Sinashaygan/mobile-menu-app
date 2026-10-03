@@ -14,8 +14,9 @@ const styles = StyleSheet.create({
   listItem: {
     borderRadius: 6,
     fontSize: 18,
-    paddingHorizontal: 4,
+    paddingHorizontal: 8,
     paddingVertical: 4,
+    marginVertical:4,
     marginHorizontal: 12,
     backgroundColor: "#e2b497",
   },
