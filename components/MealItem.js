@@ -7,6 +7,7 @@ import {
   Text,
   View,
 } from "react-native";
+import MealDetails from "./MealDetails";
 
 export default function MealItem({
   title,
@@ -41,11 +42,11 @@ export default function MealItem({
             <Text style={styles.title}>{title}</Text>
           </View>
 
-          <View style={styles.details}>
-            <Text style={styles.detailText}>{duration}m</Text>
-            <Text style={styles.detailText}>{complexity.toUpperCase()}</Text>
-            <Text style={styles.detailText}>{affordability.toUpperCase()}</Text>
-          </View>
+          <MealDetails
+            affordability={affordability}
+            complexity={complexity}
+            duration={duration}
+          />
         </View>
       </Pressable>
     </View>
@@ -83,18 +84,6 @@ const styles = StyleSheet.create({
       height: 2,
     },
     shadowRadius: 8,
-  },
-
-  details: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 8,
-  },
-
-  detailText: {
-    marginHorizontal: 4,
-    fontSize: 12,
   },
 
   pressedButton: {
