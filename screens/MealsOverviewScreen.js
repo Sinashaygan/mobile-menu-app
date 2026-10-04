@@ -25,12 +25,11 @@ export default function MealsOverviewScreen({ route, navigation }) {
 
       headerTitleStyle: {
         fontWeight: "bold",
-        // fontSize: 14,
       },
 
       headerTitleAlign: "center",
     });
   }, [catId, navigation]);
 
-  return <MealsList/>
+  return <MealsList items={displayMeals}/>
 }
