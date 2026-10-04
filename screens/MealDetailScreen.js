@@ -10,15 +10,23 @@ import { MEALS } from "../data/dummy-data";
 import MealDetails from "../components/MealDetails";
 import Subtitle from "../components/MealDetail/Subtitle";
 import List from "../components/MealDetail/List";
-import { useLayoutEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 import IconButton from "../components/IconButton";
+import { FavoritesContext } from "../store/favorite-context";
 
 export default function MealDetailScreen({ route, navigation }) {
   const mealId = route.params.mealId;
-
+  const favoriteMeal = useContext(FavoritesContext);
+  const isMealFavorite = favoriteMeal.ids.includes(mealId);
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
-  function headerButtonPressHandler() {}
+  function headerButtonPressHandler() {
+    if (isMealFavorite) {
+      favoriteMeal.removeFavorite(mealId);
+    } else {
+      favoriteMeal.addFavorite(mealId);
+    }
+  }
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -39,14 +47,14 @@ export default function MealDetailScreen({ route, navigation }) {
 
       headerRight: () => (
         <IconButton
-          icon="star"
+          icon={isMealFavorite ? "star" : "star-outline"}
           color="white"
           size={24}
           onPress={headerButtonPressHandler}
         />
       ),
     });
-  }, [navigation]);
+  }, [navigation, headerButtonPressHandler]);
 
   if (!selectedMeal) {
     return (
