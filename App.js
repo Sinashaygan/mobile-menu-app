@@ -7,6 +7,9 @@ import MealsOverviewScreen from "./screens/MealsOverviewScreen";
 import MealDetailScreen from "./screens/MealDetailScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import FavoritesScreen from "./screens/FavoriteScreen";
+import { Ionicons } from "@expo/vector-icons";
+import { Provider } from "react-redux";
+import { store } from "./store/redux/store";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -15,12 +18,16 @@ function DrawerNavigator() {
   return (
     <Drawer.Navigator
       screenOptions={{
-        title: "All Categories",
+        // title: "All Categories",
         headerStyle: {
           backgroundColor: "#351401",
         },
         headerTintColor: "white",
         sceneStyle: { backgroundColor: "#3f2f25" },
+        drawerContentStyle: { backgroundColor: "#3f2f25" },
+        drawerInactiveTintColor: "white",
+        drawerActiveBackgroundColor: "#ca8c66",
+        drawerActiveTintColor: "#3f2f25",
       }}
     >
       <Drawer.Screen
@@ -41,9 +48,21 @@ function DrawerNavigator() {
           },
 
           headerTitleAlign: "center",
+
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="list" color={color} size={size} />
+          ),
         }}
       />
-      <Drawer.Screen name="Favorite" component={FavoritesScreen} />
+      <Drawer.Screen
+        name="Favorite"
+        component={FavoritesScreen}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="star" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer.Navigator>
   );
 }
@@ -52,32 +71,38 @@ export default function App() {
   return (
     <View style={{ flex: 1 }}>
       <StatusBar style="light" />
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            title: "All Categories",
-            headerStyle: {
-              backgroundColor: "#351401",
-            },
-            headerTintColor: "white",
-            contentStyle: { backgroundColor: "#3f2f25" },
-          }}
-        >
-          <Stack.Screen
-            name="Drawer"
-            component={DrawerNavigator}
-            options={{
-              headerShown: false,
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              title: "All Categories",
+              headerStyle: {
+                backgroundColor: "#351401",
+              },
+              headerTintColor: "white",
+              contentStyle: { backgroundColor: "#3f2f25" },
             }}
-          />
+          >
+            <Stack.Screen
+              name="Drawer"
+              component={DrawerNavigator}
+              options={{
+                headerShown: false,
+              }}
+            />
 
-          <Stack.Screen name="MealOverview" component={MealsOverviewScreen} />
+            <Stack.Screen name="MealOverview" component={MealsOverviewScreen} />
 
-          <Stack.Screen name="MealDetail" component={MealDetailScreen} options={{
-            title:'about the meal'
-          }}/>
-        </Stack.Navigator>
-      </NavigationContainer>
+            <Stack.Screen
+              name="MealDetail"
+              component={MealDetailScreen}
+              options={{
+                title: "about the meal",
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
     </View>
   );
 }
