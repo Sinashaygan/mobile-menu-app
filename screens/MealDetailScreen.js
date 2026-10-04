@@ -12,7 +12,7 @@ import Subtitle from "../components/MealDetail/Subtitle";
 import List from "../components/MealDetail/List";
 import { useContext, useLayoutEffect } from "react";
 import IconButton from "../components/IconButton";
-import { FavoritesContext } from "../store/favorite-context";
+import { FavoritesContext } from "../store/context/favorite-context";
 
 export default function MealDetailScreen({ route, navigation }) {
   const mealId = route.params.mealId;
